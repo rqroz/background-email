@@ -26,7 +26,16 @@
         
         <header-file src="src/ios/BackgroundEmail.h" />
         <source-file src="src/ios/BackgroundEmail.m" />
-        
+        <header-file src="src/ios/Base64Transcoder.h" />
+        <source-file src="src/ios/Base64Transcoder.m" />
+        <header-file src="src/ios/HSK_CFUtilities.h" />
+        <source-file src="src/ios/HSK_CFUtilities.m" />
+        <header-file src="src/ios/NSData+Base64Additions.h" />
+        <source-file src="src/ios/NSData+Base64Additions.m" />
+        <header-file src="src/ios/NSStream+SKPSMTPExtensions.h" />
+        <source-file src="src/ios/NSStream+SKPSMTPExtensions.m" />
+        <header-file src="src/ios/SKPSMTPMessage.h" />
+        <source-file src="src/ios/SKPSMTPMessage.m" />
         <!-- <framework src="MessageUI.framework" /> -->
     </platform>
 
