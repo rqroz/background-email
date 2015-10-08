@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
+    id="com-spmt-rqueiroz-BackgroundEmail"
+    version="0.0.1">
+    <name>BackgroundEmail</name>
+    <description>Sends an email in the background</description>
+    <license>Apache 2.0</license>
+    <keywords>cordova,backgroundEmail</keywords>
+    <engines>
+        <engine name="cordova" version=">=3.6.0"/>
+    </engines>
+
+    <js-module src="www/BackgroundEmail.js" name="BackgroundEmail">
+        <clobbers target="background.Email" />
+    </js-module>
+
+    
+    <!-- ios -->
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="BackgroundEmail">
+                <param name="ios-package" value="BackgroundEmail" />
+            </feature>
+        </config-file>
+        
+        <header-file src="src/ios/BackgroundEmail.h" />
+        <source-file src="src/ios/BackgroundEmail.m" />
+        
+        <!-- <framework src="MessageUI.framework" /> -->
+    </platform>
+
+</plugin>
