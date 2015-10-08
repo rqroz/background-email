@@ -11,18 +11,20 @@
 
     - (void)sendMail:(CDVInvokedUrlCommand*)command
     {
-        NSString* fromEmail = [command argumentAtIndex:0];
-        NSString* toEmail = [command argumentAtIndex:1];
-        NSString* ccEmail = [command argumentAtIndex:2];
-        NSString* bccEmail = [command argumentAtIndex:3];
-        NSString* relayHost = [command argumentAtIndex:4];
-        NSString* requiresAuth = [command argumentAtIndex:5];
-        NSString* login = [command argumentAtIndex:6];
-        NSString* password = [command argumentAtIndex:7];
-        NSString* subject = [command argumentAtIndex:8];
-        NSString* content = [command argumentAtIndex:9];
+        SKPSMTPMessage *email = [[SKPSMTPMessage alloc] init]
+        email.fromEmail = [command argumentAtIndex:0];
+        email.toEmail = [command argumentAtIndex:1];
+        email.ccEmail = [command argumentAtIndex:2];
+        email.bccEmail = [command argumentAtIndex:3];
+        email.relayHost = [command argumentAtIndex:4];
+        email.requiresAuth = [command argumentAtIndex:5];
+        email.login = [command argumentAtIndex:6];
+        email.pass = [command argumentAtIndex:7];
+        email.subject = [command argumentAtIndex:8];
+        email.wantsSecure = YES;
+        email.delegate = self;
         
-        NSDictionary *actualMessage = [NSDictionary dictionaryWithObjectsAndKeys:@"text/plain", kSKPSMTPPartContentTypeKey, content, kSKPSMTPPartMessageKey, @"8bit", kSKPSMTPPartContentTransferEncodingKey, nil];
+        NSDictionary *actualMessage = [NSDictionary dictionaryWithObjectsAndKeys:@"text/plain", kSKPSMTPPartContentTypeKey, [command argumentAtIndex:9], kSKPSMTPPartMessageKey, @"8bit", kSKPSMTPPartContentTransferEncodingKey, nil];
         email.parts = [NSArray arrayWithObjects:actualMessage, nil];
         [email send];
         
