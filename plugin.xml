@@ -12,7 +12,7 @@
     </engines>
 
     <js-module src="www/BackgroundEmail.js" name="BackgroundEmail">
-        <clobbers target="background.Email" />
+        <clobbers target="window.background.Email" />
     </js-module>
 
     
