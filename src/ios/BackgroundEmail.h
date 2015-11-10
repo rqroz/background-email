@@ -4,6 +4,6 @@
 #import "NSData+Base64Additions.h"
 
 @interface BackgroundEmail <SKPSMTPMessageDelegate> : CDVPlugin
-    - (void)sendMail:(CDVInvokedUrlCommand*)command;
+- (void)send:(CDVInvokedUrlCommand*)command;
 
 @end
