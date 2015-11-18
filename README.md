@@ -16,7 +16,7 @@ Then type -fno-objc-arc as the compiler flag for those files to disable Objectiv
   
 ##Using:
 The plugin is not ready until deviceready event occurs.
-```JavaScript
+```javascript
       var autoEmail = "";
       document.addEventListener('deviceready', onDeviceReady, false);
       function onDeviceReady(){
@@ -25,7 +25,7 @@ The plugin is not ready until deviceready event occurs.
 ```
 
 ##Sending Email:
-  ```
+  ```javascript
       var emailObject = {
         from: "yourID@yourDomain.com",
         to: "destinationID@destinationDomain.com",
