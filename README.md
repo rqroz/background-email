@@ -23,7 +23,8 @@ The plugin is not ready until deviceready event occurs.
       }
       
   Sending Email:
-    
+  
+    Ex:
       var emailObject = {
         from: "yourID@yourDomain.com",
         to: "destinationID@destinationDomain.com",
