@@ -14,9 +14,36 @@ Set up:
   
 Using:
   The plugin is not ready until deviceready event occurs.
-  Ex:
-    var autoEmail = "";
-    document.addEventListener('deviceready', onDeviceReady, false);
-    function onDeviceReady(){
-      autoEmail = window.background.Email;
-    }
+  Initializing: 
+    Ex:
+      var autoEmail = "";
+      document.addEventListener('deviceready', onDeviceReady, false);
+      function onDeviceReady(){
+        autoEmail = window.background.Email;
+      }
+      
+  Sending Email:
+    Ex:
+      var emailObject = {
+        from: "yourID@yourDomain.com",
+        to: "destinationID@destinationDomain.com",
+        subject: "Some Subject", //Subject for the email
+        body: "Some Message", //body message for the email
+        login: "yourID@yourDomain.com", //same as "from" (for some cases just 'yourID' is necessary)
+        password: "yourPassword", //your email's password
+        relayHost: "some.smtp.server", //ex: "smtp.google.com"
+        port: somePortAsInteger //valid ports are 25, 465, or 587.
+                                //If you don't know what port it your server uses, delete this attribute completely
+      };
+      
+      var success = function(){
+        alert("Email sent!");
+      }
+      
+      var failure = function(error){
+        alert(error);
+      }
+      
+      autoEmail.send(emailObject, success, failure);
+      
+      
