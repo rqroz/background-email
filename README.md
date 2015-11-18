@@ -8,11 +8,15 @@ Install
   $ cordova plugin add https://github.com/rqroz/background-email.git
 
 Set up:
+
 Your Project -> Build Phases -> Compile Sources
+
 Select all the files related to this plugin (see src/ios) in there and press Enter.
+
 Then type -fno-objc-arc as the compiler flag for those files to disable Objective-C Automatic Reference Counting
   
 Using:
+
 The plugin is not ready until deviceready event occurs.
 
     Ex:
