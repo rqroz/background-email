@@ -63,6 +63,6 @@ The plugin is not ready until deviceready event occurs.
       I would tell you to do the same for now.
       
       Other than that, I tested it with some pretty simple apps and they all worked fine for me. Email me and let me 
-      know: ```ryu-shi@hotmail.com```.
+      know: ryu-shi@hotmail.com.
       
       Thanks! :)
