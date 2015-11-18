@@ -24,6 +24,7 @@ Using:
       
   Sending Email:
     Ex:
+    
       var emailObject = {
         from: "yourID@yourDomain.com",
         to: "destinationID@destinationDomain.com",
