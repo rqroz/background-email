@@ -23,7 +23,6 @@ Using:
       }
       
   Sending Email:
-    Ex:
     
       var emailObject = {
         from: "yourID@yourDomain.com",
