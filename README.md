@@ -51,6 +51,7 @@ The plugin is not ready until deviceready event occurs.
 
 
 ##Tips
+
       The connection between your device and the server you're using may be slow depending on 
       a number of factors (internet speed, trafic, etc), which delays the response. If you do 
       not specify a port, for example, it might take up to 1 minute for the result (either 
@@ -58,6 +59,7 @@ The plugin is not ready until deviceready event occurs.
       similar so the user doesn't think nothing is happening.
       
 ##Important
+
       As you may know by now, the plugin is still in its development stage. While testing it with
       a fairly complex app, I run through a case where I would send the email and do not receive 
       any response. Then if I put the app in the background and come back to it later it would 
