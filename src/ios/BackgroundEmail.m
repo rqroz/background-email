@@ -3,52 +3,76 @@
 #import "SKPSMTPMessage.h"
 #import "NSData+Base64Additions.h"
 
-@implementation BackgroundEmail
-CDVInvokedUrlCommand* aux;
--(void)pluginInitialize{
-    
-}
+@interface BackgroundEmail() <SKPSMTPMessageDelegate>
+@end
 
-- (void)send:(CDVInvokedUrlCommand*)command
-{
-    aux = command;
-    SKPSMTPMessage *email = [[SKPSMTPMessage alloc] init];
-    email.fromEmail = [command argumentAtIndex:0];
-    email.toEmail = [command argumentAtIndex:1];
-    email.relayHost = [command argumentAtIndex:2];
-    email.requiresAuth = [command argumentAtIndex:3];
-    email.login = [command argumentAtIndex:4];
-    email.pass = [command argumentAtIndex:5];
-    email.subject = [command argumentAtIndex:6];
-    email.wantsSecure = [command argumentAtIndex:7];
-    email.relayPorts = [[NSArray alloc] initWithObjects:[NSNumber numberWithShort:587], nil];
-    email.validateSSLChain = NO;
-    
-    NSString *bodyMessage = [command argumentAtIndex:8];
-    NSDictionary *actualMessage = [NSDictionary dictionaryWithObjectsAndKeys:@"text/plain", kSKPSMTPPartContentTypeKey, bodyMessage, kSKPSMTPPartMessageKey, @"8bit", kSKPSMTPPartContentTransferEncodingKey, nil];
-    email.parts = [NSArray arrayWithObjects:actualMessage, nil];
-    [email send];
-    
-    /*
-     if (myarg != nil) {
-     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-     } else {
-     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Arg was null"];
-     }
-     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-     */
-}
 
--(void)messageSent:(SKPSMTPMessage *)message{
-    NSLog(@"Message Sent!");
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:aux.callbackId];
-}
+@implementation BackgroundEmail: CDVPlugin
+    @synthesize callbackID;
+    -(void)pluginInitialize{
 
--(void)messageFailed:(SKPSMTPMessage *)message error:(NSError *)error{
-    NSLog(@"Message Failed");
-    CDVPluginResult* pluginResult =[CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Arg was null"];
-    [self.commandDelegate sendPluginResult:pluginResult callbackId:aux.callbackId];
-}
+    }
+
+    - (void)sendEmail:(CDVInvokedUrlCommand*)command
+    {
+        [self.commandDelegate runInBackground:^{
+            SKPSMTPMessage *email = [[SKPSMTPMessage alloc] init];
+            @try {
+                self.callbackID = command.callbackId;
+                email.fromEmail = [command argumentAtIndex:0];
+                email.toEmail = [command argumentAtIndex:1];
+                email.subject = [command argumentAtIndex:2];
+                email.login = [command argumentAtIndex:4];
+                email.pass = [command argumentAtIndex:5];
+                email.relayHost = [command argumentAtIndex:6];
+                email.requiresAuth = YES;
+                email.wantsSecure = YES;
+                email.validateSSLChain = NO;
+                email.delegate = self;
+                
+                NSInteger port = [[command argumentAtIndex:7] integerValue];
+                if(port != 0){
+                    email.relayPorts = [[NSArray alloc] initWithObjects:[NSNumber numberWithShort:port], nil];
+                }
+                
+                NSString *bodyMessage = [command argumentAtIndex:3];
+                NSDictionary *actualMessage = [NSDictionary dictionaryWithObjectsAndKeys:@"text/plain", kSKPSMTPPartContentTypeKey, bodyMessage, kSKPSMTPPartMessageKey, @"8bit", kSKPSMTPPartContentTransferEncodingKey, nil];
+                email.parts = [NSArray arrayWithObjects:actualMessage, nil];
+               
+                [email send];
+            }
+            @catch (NSException *exception) {
+                CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:[exception description]];
+                [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackID];
+            }
+        }];
+    }
+
+    -(void)messageSent:(SKPSMTPMessage *)message{
+            @try {
+                /*
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"SMTP Email" message:@"Email Sent!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+                */
+                CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Message sent!"];
+                [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackID];
+            }
+            @catch (NSException *exception) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"SMTP Email" message:[exception description] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+            }
+    }
+
+    -(void)messageFailed:(SKPSMTPMessage *)message error:(NSError *)error{
+            @try{
+                NSString *errorMsg = [NSString stringWithFormat:@"%@\n%@", [error localizedDescription], [error localizedRecoverySuggestion]];
+                CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:errorMsg];
+                [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackID];
+            }
+            @catch(NSException *exception){
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"SMTP Email" message:[exception description] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+            }
+    }
 
 @end
