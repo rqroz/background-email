@@ -212,7 +212,7 @@ NSString *kSKPSMTPPartContentTransferEncodingKey = @"kSKPSMTPPartContentTransfer
             *error = [NSError errorWithDomain:errorDomainName
                                          code:streamError.error
                                      userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Error resolving address.", NSLocalizedDescriptionKey,
-                                               @"Check your SMTP Host name", NSLocalizedRecoverySuggestionErrorKey, nil]];
+                                               @"Check your SMTP Host name or internet connection.", NSLocalizedRecoverySuggestionErrorKey, nil]];
         CFRelease(host);
         return NO;
     }
@@ -222,7 +222,7 @@ NSString *kSKPSMTPPartContentTransferEncodingKey = @"kSKPSMTPPartContentTransfer
         if(error)
             *error = [NSError errorWithDomain:@"SKPSMTPMessageError" code:kSKPSMTPErrorNonExistentDomain userInfo:
                       [NSDictionary dictionaryWithObjectsAndKeys:@"Error resolving host.", NSLocalizedDescriptionKey,
-                       @"Check your SMTP Host name", NSLocalizedRecoverySuggestionErrorKey, nil]];
+                       @"Check your SMTP Host name or internet connection.", NSLocalizedRecoverySuggestionErrorKey, nil]];
         CFRelease(host);
         return NO;
     }
@@ -269,13 +269,15 @@ NSString *kSKPSMTPPartContentTransferEncodingKey = @"kSKPSMTPPartContentTransfer
     }
     
     // Grab the next relay port
-    short relayPort = [[relayPorts objectAtIndex:0] shortValue];
+    int relayPort = (int)[[relayPorts objectAtIndex:0] integerValue];
     
     // Pop this off the head of the queue.
     self.relayPorts = ([relayPorts count] > 1) ? [relayPorts subarrayWithRange:NSMakeRange(1, [relayPorts count] - 1)] : [NSArray array];
-    
+    /*
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"SMTP Email" message:[NSString stringWithFormat:@"Attempting to connect to server at: %@:%d", relayHost, relayPort] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    [alert show];
+    */
     NSLog(@"C: Attempting to connect to server at: %@:%d", relayHost, relayPort);
-    
     
     self.connectTimer = [NSTimer timerWithTimeInterval:connectTimeout target:self selector:@selector(connectionConnectedCheck:) userInfo:nil repeats:NO];
     [[NSRunLoop mainRunLoop] addTimer:self.connectTimer forMode:NSDefaultRunLoopMode];
@@ -329,7 +331,7 @@ NSString *kSKPSMTPPartContentTransferEncodingKey = @"kSKPSMTPPartContentTransfer
         {
             uint8_t buf[1024];
             memset(buf, 0, sizeof(uint8_t) * 1024);
-            unsigned int len = 0;
+            NSInteger len = 0;
             len = [(NSInputStream *)stream read:buf maxLength:1024];
             if(len) 
             {
@@ -580,9 +582,11 @@ NSString *kSKPSMTPPartContentTransferEncodingKey = @"kSKPSMTPPartContentTransfer
                             NSLog(@"WARNING: Will not validate SSL chain!!!");
                             
                             CFDictionarySetValue(sslOptions, kCFStreamSSLValidatesCertificateChain, kCFBooleanFalse);
+                            /*
                             CFDictionarySetValue(sslOptions, kCFStreamSSLAllowsExpiredCertificates, kCFBooleanTrue);
                             CFDictionarySetValue(sslOptions, kCFStreamSSLAllowsExpiredRoots, kCFBooleanTrue);
                             CFDictionarySetValue(sslOptions, kCFStreamSSLAllowsAnyRoot, kCFBooleanTrue);
+                            */
                         }
                         
                         NSLog(@"Beginning TLSv1...");
