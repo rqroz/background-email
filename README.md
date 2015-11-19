@@ -34,8 +34,9 @@ The plugin is not ready until deviceready event occurs.
         login: "yourID@yourDomain.com", //Same as "from" (for some cases just 'yourID' is necessary)
         password: "yourPassword", //Your email's password
         relayHost: "some.smtp.server", //Ex: "smtp.google.com"
-        port: somePortAsInteger //Valid ports are 25, 465, or 587.
-        //If you don't know what port your server uses, delete this attribute (the full line)
+        port: somePortAsInteger, //Valid ports are 25, 465, or 587.
+        //If you don't know what port your server uses, don't use this attribute
+        SSL: booleanValue //Accepts true or false and stands for SSL Chain Validation
       };
       
       var success = function(){
