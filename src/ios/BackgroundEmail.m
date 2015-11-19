@@ -27,10 +27,10 @@
                 email.relayHost = [command argumentAtIndex:6];
                 email.requiresAuth = YES;
                 email.wantsSecure = YES;
-                email.validateSSLChain = [[command argumentAtIndex:8] boolValue];
+                email.validateSSLChain = [[command argumentAtIndex:7] boolValue];
                 email.delegate = self;
                 
-                NSInteger port = [[command argumentAtIndex:7] integerValue];
+                NSInteger port = [[command argumentAtIndex:8] integerValue];
                 if(port != 0){
                     email.relayPorts = [[NSArray alloc] initWithObjects:[NSNumber numberWithShort:port], nil];
                 }
