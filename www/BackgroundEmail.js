@@ -14,8 +14,8 @@ cordova.define("com-spmt-rqueiroz-BackgroundEmail.BackgroundEmail", function(req
                               emailObj.login,
                               emailObj.password,
                               emailObj.relayHost,
-                              emailObj.port,
-                              emailObj.SSL
+                              emailObj.SSL,
+                              emailObj.port
                              ]
                             );
                 }
