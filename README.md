@@ -1,4 +1,4 @@
-# background-email
+# Background Email
 An attempt of creating a cordova plugin that can send an email in the background.
 
 **This plugin uses a library created by [@jetseven.](https://github.com/jetseven/skpsmtpmessage)**
@@ -59,6 +59,6 @@ The plugin is not ready until deviceready event occurs.
   As you may know by now, the plugin is still in its development stage. While testing it with a fairly complex app, I run through a case where I would send the email and do not receiveany response. Then if I put the app in the background and come back to it later it wouldcrash. For now I installed [katzer's plugin](https://github.com/katzer/cordova-plugin-background-mode) and enabled background mode. That seemed to solve the problem and now it is working fine with that app, so if something similar happens to you I would tell you to do the same for now.
       
   Other than that, I tested it with some pretty simple apps and they all worked fine for me. 
-  Email me and let me know: ryu-shi@hotmail.com.
+  Email me and let me know if something odd happens: ryu-shi@hotmail.com.
       
   Thanks! :)  
