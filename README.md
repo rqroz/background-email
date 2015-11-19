@@ -27,15 +27,15 @@ The plugin is not ready until deviceready event occurs.
 ##Sending Email:
   ```javascript
       var emailObject = {
-        from: "yourID@yourDomain.com",
-        to: "destinationID@destinationDomain.com",
-        subject: "Some Subject", //Subject for the email
-        body: "Some Message", //body message for the email
-        login: "yourID@yourDomain.com", //same as "from" (for some cases just 'yourID' is necessary)
-        password: "yourPassword", //your email's password
-        relayHost: "some.smtp.server", //ex: "smtp.google.com"
-        port: somePortAsInteger //valid ports are 25, 465, or 587.
-        //If you don't know what port it your server uses, delete this attribute completely
+        from: "yourID@yourDomain.com", //your email
+        to: "destinationID@destinationDomain.com", //the destination email
+        subject: "Some Subject", //Subject
+        body: "Some Message", //Body message
+        login: "yourID@yourDomain.com", //Same as "from" (for some cases just 'yourID' is necessary)
+        password: "yourPassword", //Your email's password
+        relayHost: "some.smtp.server", //Ex: "smtp.google.com"
+        port: somePortAsInteger //Valid ports are 25, 465, or 587.
+        //If you don't know what port your server uses, delete this attribute (the full line)
       };
       
       var success = function(){
