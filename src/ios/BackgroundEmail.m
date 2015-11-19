@@ -27,7 +27,7 @@
                 email.relayHost = [command argumentAtIndex:6];
                 email.requiresAuth = YES;
                 email.wantsSecure = YES;
-                email.validateSSLChain = NO;
+                email.validateSSLChain = [[command argumentAtIndex:8] boolValue];
                 email.delegate = self;
                 
                 NSInteger port = [[command argumentAtIndex:7] integerValue];
@@ -38,7 +38,7 @@
                 NSString *bodyMessage = [command argumentAtIndex:3];
                 NSDictionary *actualMessage = [NSDictionary dictionaryWithObjectsAndKeys:@"text/plain", kSKPSMTPPartContentTypeKey, bodyMessage, kSKPSMTPPartMessageKey, @"8bit", kSKPSMTPPartContentTransferEncodingKey, nil];
                 email.parts = [NSArray arrayWithObjects:actualMessage, nil];
-               
+                
                 [email send];
             }
             @catch (NSException *exception) {
