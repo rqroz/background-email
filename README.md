@@ -1,5 +1,5 @@
 # Background Email
-An attempt of creating a cordova plugin that can send an email in the background.
+An attempt of creating a cordova plugin that sends an email in the background.
 
 **This plugin uses a library created by [@jetseven.](https://github.com/jetseven/skpsmtpmessage)**
   
