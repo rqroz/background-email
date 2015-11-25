@@ -51,8 +51,8 @@ The plugin is not ready until deviceready event occurs.
         relayHost: "some.smtp.server", //Ex: "smtp.google.com"
         port: [arrayOfIntegers], //Valid ports are 25, 465, and 587. Ex: [25, 587]
         //If you don't know what port your server uses, don't use this attribute
-        auth: booleanValue1,
-        security: booleanValue2,
+        auth: booleanValue1, //True or false for if the server requires authentication
+        security: booleanValue2, //True or false
         SSL: booleanValue3 //Accepts true or false and stands for SSL Chain Validation
       };
       
