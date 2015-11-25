@@ -53,10 +53,6 @@
 
     -(void)messageSent:(SKPSMTPMessage *)message{
             @try {
-                /*
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"SMTP Email" message:@"Email Sent!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                [alert show];
-                */
                 CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Message sent!"];
                 [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackID];
             }
