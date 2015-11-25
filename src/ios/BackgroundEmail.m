@@ -19,23 +19,26 @@
             SKPSMTPMessage *email = [[SKPSMTPMessage alloc] init];
             @try {
                 self.callbackID = command.callbackId;
-                email.fromEmail = [command argumentAtIndex:0];
-                email.toEmail = [command argumentAtIndex:1];
-                email.subject = [command argumentAtIndex:2];
-                email.login = [command argumentAtIndex:4];
-                email.pass = [command argumentAtIndex:5];
-                email.relayHost = [command argumentAtIndex:6];
-                email.requiresAuth = YES;
-                email.wantsSecure = YES;
-                email.validateSSLChain = [[command argumentAtIndex:7] boolValue];
+                CDVInvokedUrlCommand *arguments = [command argumentAtIndex:0];
+                email.fromEmail = [arguments valueForKey:@"from"];
+                email.toEmail = [arguments valueForKey:@"to"];
+                email.ccEmail = [arguments valueForKey:@"cc"];
+                email.bccEmail = [arguments valueForKey:@"bcc"];
+                email.subject = [arguments valueForKey:@"subject"];
+                email.login = [arguments valueForKey:@"login"];
+                email.pass = [arguments valueForKey:@"password"];
+                email.relayHost = [arguments valueForKey:@"relayHost"];
+                email.requiresAuth = [[arguments valueForKey:@"auth"] boolValue];
+                email.wantsSecure = [[arguments valueForKey:@"security"] boolValue];
+                email.validateSSLChain = [[arguments valueForKey:@"SSL"] boolValue];
                 email.delegate = self;
                 
-                NSInteger port = [[command argumentAtIndex:8] integerValue];
-                if(port != 0){
-                    email.relayPorts = [[NSArray alloc] initWithObjects:[NSNumber numberWithShort:port], nil];
+                NSArray *ports = [[NSMutableArray alloc] initWithArray:[arguments valueForKey:@"ports"] copyItems:YES];
+                if (!(!ports || !ports.count)) {
+                    email.relayPorts = [[NSArray alloc] initWithArray:ports];
                 }
                 
-                NSString *bodyMessage = [command argumentAtIndex:3];
+                NSString *bodyMessage = [arguments valueForKey:@"body"];
                 NSDictionary *actualMessage = [NSDictionary dictionaryWithObjectsAndKeys:@"text/plain", kSKPSMTPPartContentTypeKey, bodyMessage, kSKPSMTPPartMessageKey, @"8bit", kSKPSMTPPartContentTransferEncodingKey, nil];
                 email.parts = [NSArray arrayWithObjects:actualMessage, nil];
                 
