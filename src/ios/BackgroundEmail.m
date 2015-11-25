@@ -76,26 +76,14 @@
     }
 
     -(void)messageSent:(SKPSMTPMessage *)message{
-            @try {
-                CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Message sent!"];
-                [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackID];
-            }
-            @catch (NSException *exception) {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"SMTP Email" message:[exception description] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                [alert show];
-            }
+        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Message sent!"];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackID];
     }
 
     -(void)messageFailed:(SKPSMTPMessage *)message error:(NSError *)error{
-            @try{
-                NSString *errorMsg = [NSString stringWithFormat:@"%@\n%@", [error localizedDescription], [error localizedRecoverySuggestion]];
-                CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:errorMsg];
-                [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackID];
-            }
-            @catch(NSException *exception){
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"SMTP Email" message:[exception description] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                [alert show];
-            }
+        NSString *errorMsg = [NSString stringWithFormat:@"%@\n%@", [error localizedDescription], [error localizedRecoverySuggestion]];
+        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:errorMsg];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackID];
     }
 
 @end
