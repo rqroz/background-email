@@ -33,7 +33,7 @@ The plugin is not ready until deviceready event occurs.
       var autoEmail = "";
       document.addEventListener('deviceready', onDeviceReady, false);
       function onDeviceReady(){
-        autoEmail = window.background.Emaail;
+        autoEmail = window.background.Email;
       }
 ```
 
