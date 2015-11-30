@@ -6,7 +6,7 @@
     <name>BackgroundEmail</name>
     <description>Sends an email in the background</description>
     <license>Apache 2.0</license>
-    <keywords>cordova,backgroundEmail</keywords>
+    <keywords>cordova,background,email</keywords>
     <engines>
         <engine name="cordova" version=">=3.6.0"/>
     </engines>
