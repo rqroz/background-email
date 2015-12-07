@@ -23,7 +23,6 @@
  **/
 
 
-cordova.define("com-spmt-rqueiroz-BackgroundEmail.BackgroundEmail", function(require, exports, module) {
     module.exports = {
        send: function(emailObj, successCallback, failCallback) {
            cordova.exec(
@@ -35,5 +34,3 @@ cordova.define("com-spmt-rqueiroz-BackgroundEmail.BackgroundEmail", function(req
                         );
            }
        };
-    }
-);
