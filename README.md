@@ -70,7 +70,6 @@ The plugin is not ready until deviceready event occurs.
 ```
 
 ##Final Comments
-  Other than that, I tested it with some other apps and they all worked fine for me. 
   Email me and let me know if something odd happens: ryu-shi@hotmail.com.
       
   Thanks! :)  
