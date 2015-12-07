@@ -17,9 +17,9 @@ An attempt of creating a cordova plugin that sends an email in the background.
   - Then type -fno-objc-arc as the compiler flag for those files to disable Objective-C Automatic Reference Counting.
 
 ##Tips
-###Delay
+####Delay
   The connection between your device and the server you're using may be slow depending on a number of factors (internet speed, trafic, etc), which delays the response. If you do not specify a port, for example, it might take up to 1 minute for the result (either successful or not) to be received. Therefore, it is nice to put a loading screen or something similar so the user doesn't think nothing is happening.
-###Usage
+####Usage
   For to, cc & bcc fields, if you want to include more than one email just declare it as a string such as:
   
   "email1@domain1.com, email2@domain2.com, email3@domain3.com"
