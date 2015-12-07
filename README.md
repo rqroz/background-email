@@ -8,11 +8,11 @@ An attempt of creating a cordova plugin that sends an email in the background.
   $ cordova plugin add https://github.com/rqroz/background-email.git
 
 ##Set up:
-#### ADD CFNetwork.framework to your project
+##### ADD CFNetwork.framework to your project
 
 Your Project -> Build Phases -> Link Binary With Libraries -> Add Library ( + ) -> CFNetwork
 
-#### Disable Objective-C Automatic Reference Counting for plugin files
+##### Disable Objective-C Automatic Reference Counting for plugin files
 
 Your Project -> Build Phases -> Compile Sources
 
