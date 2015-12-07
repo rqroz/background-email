@@ -10,7 +10,7 @@ An attempt of creating a cordova plugin that sends an email in the background.
 ##Set up:
 ##### ADD CFNetwork.framework to your project
 
-Your Project -> Build Phases -> Link Binary With Libraries -> Add Library ( + ) -> CFNetwork
+- Your Project -> Build Phases -> Link Binary With Libraries -> Add Library ( + ) -> CFNetwork
 
 ##### Disable Objective-C Automatic Reference Counting for plugin files
 
