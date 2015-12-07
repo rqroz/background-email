@@ -16,7 +16,7 @@ Your Project -> Build Phases -> Link Binary With Libraries -> Add Library ( + ) 
 
 Your Project -> Build Phases -> Compile Sources
 
-Select all the files related to this plugin (see src/ios) in there and press Enter.
+> Select all the files related to this plugin (see src/ios) in there and press Enter.
 
 Then type -fno-objc-arc as the compiler flag for those files to disable Objective-C Automatic Reference Counting.
 
