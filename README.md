@@ -58,8 +58,8 @@ The plugin is not ready until deviceready event occurs.
         SSL: booleanValue3 //Accepts true or false and stands for SSL Chain Validation
       };
       
-      var success = function(){
-        alert("Email sent!");
+      var success = function(msg){
+        alert(msg); //"Email sent!"
       }
       
       var failure = function(error){
