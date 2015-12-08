@@ -29,6 +29,7 @@
 
 @interface BackgroundEmail <SKPSMTPMessageDelegate> : CDVPlugin
     @property(strong) NSString* callbackID;
+    @property(nonatomic, strong) SKPSMTPMessage *email;
 
     -(void)sendEmail:(CDVInvokedUrlCommand*)command;
 @end
