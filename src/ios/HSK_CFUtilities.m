@@ -1,29 +1,11 @@
-//
-//  HSK_CFUtilities.m
-//
-//  Copyright (c) 2008 Skorpiostech, Inc. All rights reserved.
-//
-//  Permission is hereby granted, free of charge, to any person
-//  obtaining a copy of this software and associated documentation
-//  files (the "Software"), to deal in the Software without
-//  restriction, including without limitation the rights to use,
-//  copy, modify, merge, publish, distribute, sublicense, and/or sell
-//  copies of the Software, and to permit persons to whom the
-//  Software is furnished to do so, subject to the following
-//  conditions:
-//
-//  The above copyright notice and this permission notice shall be
-//  included in all copies or substantial portions of the Software.
-//
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-//  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
-//  OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-//  NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-//  HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-//  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-//  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-//  OTHER DEALINGS IN THE SOFTWARE.
-//
+ /*
+ *  HSK_CFUtilities.m
+ *  Handshake
+ *
+ *  Created by Ian Baird on 11/26/08.
+ *  Copyright 2008 Skorpiostech, Inc. All rights reserved.
+ *
+ */
 
 #include "HSK_CFUtilities.h"
 
@@ -41,7 +23,7 @@ void CFStreamCreatePairWithUNIXSocketPair(CFAllocatorRef alloc, CFReadStreamRef 
     
     CFStreamCreatePairWithSocket(NULL, sockpair[0], readStream, NULL);
     CFReadStreamSetProperty(*readStream, kCFStreamPropertyShouldCloseNativeSocket, kCFBooleanTrue);
-    CFStreamCreatePairWithSocket(NULL, sockpair[1], NULL, writeStream);    
+    CFStreamCreatePairWithSocket(NULL, sockpair[1], NULL, writeStream);
     CFWriteStreamSetProperty(*writeStream, kCFStreamPropertyShouldCloseNativeSocket, kCFBooleanTrue);
 }
 
@@ -49,7 +31,7 @@ CFIndex CFWriteStreamWriteFully(CFWriteStreamRef outputStream, const uint8_t* bu
 {
     CFIndex bufferOffset = 0;
     CFIndex bytesWritten;
-        
+    
     while (bufferOffset < length)
     {
         if (CFWriteStreamCanAcceptBytes(outputStream))
@@ -57,14 +39,14 @@ CFIndex CFWriteStreamWriteFully(CFWriteStreamRef outputStream, const uint8_t* bu
             bytesWritten = CFWriteStreamWrite(outputStream, &(buffer[bufferOffset]), length - bufferOffset);
             if (bytesWritten < 0)
             {
-                // Bail!                
+                // Bail!
                 return bytesWritten;
             }
             bufferOffset += bytesWritten;
         }
         else if (CFWriteStreamGetStatus(outputStream) == kCFStreamStatusError)
         {
-            return -1;
+            [NSException raise:@"HSK_CFUtilitiesErrorDomain" format:@"Error writing bytes to stream!"];
         }
         else
         {
