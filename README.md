@@ -12,6 +12,7 @@ An attempt of creating a cordova plugin that sends an email in the background.
   - Your Project -> Build Phases -> Compile Sources
   - Select all the files related to this plugin (see src/ios) in there and press Enter.
   - Then type -fno-objc-arc as the compiler flag for those files to disable Objective-C Automatic Reference Counting.
+
 **2. ADD CFNetwork.framework to your project**
   - Your Project -> Build Phases -> Link Binary With Libraries -> Add Library ( + ) -> CFNetwork
 
